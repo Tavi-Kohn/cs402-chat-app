@@ -6,7 +6,8 @@ import { ChatBubble } from "./components/ChatBubble";
 export default function App() {
   return (
     <View style={styles.container}>
-      <ChatBubble text={"Hello World"}></ChatBubble>
+      <ChatBubble user="Person 1" tailDirection="left">Hello World</ChatBubble>
+      <ChatBubble user="Person 2" tailDirection="right">Yes</ChatBubble>
       <StatusBar style="auto" />
     </View>
   );
