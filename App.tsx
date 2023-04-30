@@ -20,7 +20,7 @@ export default function App() {
 */
 
 export default function App() {
-  const[screen,setScreen] = useState('join');
+  const[screen,setScreen] = useState('session');
 
   var cur_view 
   switch (screen) {
