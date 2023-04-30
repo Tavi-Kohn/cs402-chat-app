@@ -20,15 +20,31 @@ const getItem = (_data, index) => ({
   );
 
 const { width, height } = Dimensions.get('window');
-export function ChatSession() {
+
+export const ChatSession = ({setScreen}) => {
     const [list, setlist] = useState([]);
+    const Disconnect = () => {
+        // Do something here when the back button is pressed
+        setScreen('join')
+        return true; // Return true to prevent default behavior (exit app)
+      };
     
 
 
     return (
     
         <View style={styles.container}>
+            <View style={styles.topNav}>
+                <View style={styles.topNavButtons}>
+                    <TouchableOpacity style={styles.button} onPress={Disconnect}>
+                    <Text style={styles.buttonText}>Disconnect</Text>
+                    </TouchableOpacity>
+                    <Text>Session ID</Text>
+                   
+                </View>
+            </View>
             <View style ={styles.chatPanel}>
+            
                 <VirtualizedList
                     initialNumToRender={4}
                     renderItem={({item}) => <ChatBubble user="Person 1" tailDirection="left">{item.title}</ChatBubble>}
@@ -121,7 +137,7 @@ export function ChatSession() {
         borderRadius: 5,
         
         paddingBottom: 0,
-        height:height-400
+        height:height-460
       },
       container: {
         flex: 1,
@@ -141,6 +157,17 @@ export function ChatSession() {
       },
       title: {
         fontSize: 32,
+      },
+      topNav: {
+        height: 70,
+        borderWidth: 1,
+        borderColor: 'black',
+        borderRadius: 5,
+      },
+      topNavButtons: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
       },
 
   });

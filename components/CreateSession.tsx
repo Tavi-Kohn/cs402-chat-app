@@ -3,7 +3,10 @@ import { Text, View, StyleSheet, TextInput,TouchableOpacity } from 'react-native
 import Constants from 'expo-constants';
 import { PropsWithChildren } from "react";
 
-export function CreateSession() {
+export const CreateSession = ({setScreen}) => {
+    const cancelPress = () => { 
+        setScreen('join')
+    }
     return (
       <View>
         <Text>Session Name</Text>
@@ -14,8 +17,8 @@ export function CreateSession() {
         <TouchableOpacity style={styles.button} >
       <Text style={styles.buttonText}>create</Text>
     </TouchableOpacity>
-    <TouchableOpacity style={styles.button} >
-      <Text style={styles.buttonText}>Back</Text>
+    <TouchableOpacity style={styles.button} onPress={cancelPress} >
+      <Text style={styles.buttonText}>Cancel</Text>
     </TouchableOpacity>
       </View>
     );

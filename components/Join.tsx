@@ -5,9 +5,15 @@ import { PropsWithChildren } from "react";
 
 export const Join = ({setScreen}) => {
 
-  const joinSession = () => {
+  const joinSessionPress = () => {
     // Do something here when the back button is pressed
     setScreen('session')
+    return true; // Return true to prevent default behavior (exit app)
+  };
+  
+  const createSessionPress = () => {
+    // Do something here when the back button is pressed
+    setScreen('create')
     return true; // Return true to prevent default behavior (exit app)
   };
 
@@ -18,10 +24,10 @@ export const Join = ({setScreen}) => {
         <Text>Session ID</Text>
         <TextInput style={styles.input}>test</TextInput>
 
-        <TouchableOpacity style={styles.button} onPress={joinSession}>
+        <TouchableOpacity style={styles.button} onPress={joinSessionPress}>
       <Text style={styles.buttonText}>Join</Text>
     </TouchableOpacity>
-    <TouchableOpacity style={styles.button} >
+    <TouchableOpacity style={styles.button} onPress={createSessionPress}>
       <Text style={styles.buttonText}>Create</Text>
     </TouchableOpacity>
       </View>
