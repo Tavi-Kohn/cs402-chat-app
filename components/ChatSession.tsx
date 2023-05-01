@@ -6,30 +6,80 @@ import { PropsWithChildren } from "react";
 import { ChatBubble } from "./ChatBubble";
 
 
-const getItem = (_data, index) => ({
-    id: Math.random().toString(12).substring(0),
-    title: `Item ${index + 1}`,
-  });
-  
-  const getItemCount = _data => 20;
 
-  const Item = ({title}) => (
-    <View style={styles.item}>
-      <Text style={styles.title}>{title}</Text>
-    </View>
-  );
+
+
+ /*
+  const getItem = (data, index) => {
+    const item = chatLog[index];
+    return {
+      id: item.id,
+      title: item.message,
+    };
+  };*/
+
+
 
 const { width, height } = Dimensions.get('window');
 
-export const ChatSession = ({setScreen}) => {
+export const ChatSession = ({setScreen,userName,SessionID}) => {
+    
     const [list, setlist] = useState([]);
+
+    const[message,setMessage] = useState('');
+
+
+
+    var chatLog = [{user:'person1',message:'I sure love writing react native code!',timeStamp:'10:26'},
+    {user:'person1',message:'lmao',timeStamp:'10:28'},
+    {user:'Rob',message:'I hope I can finish this in time.',timeStamp:'10:29'},
+    {user:'Fred',message:'We got this!.',timeStamp:'10:35'},
+    {user:'Anna',message:'Wow this chat app is soo cool!',timeStamp:'10:40'},
+]
+    //setlist(chatLog);
+    
+    const renderMessage = ({item}) => {
+        console.log('renderMessage called')
+        console.log(item.user)
+        console.log(userName)
+        console.log(item.user === userName)
+        if (item.user == userName){
+        return <View style={styles.date}><Text>{item.timeStamp}</Text><ChatBubble user={item.user} tailDirection="right">{item.message}</ChatBubble></View>
+        }
+        else {
+            return <View style={styles.date}><Text>{item.timeStamp}</Text><ChatBubble user={item.user} tailDirection="left">{item.message}</ChatBubble></View>
+        }
+    }
+
+    const getItem = (_data, index) => ({
+        id: Math.random().toString(12).substring(0),
+        //title: `Item ${index }`,
+        user: chatLog[index].user,
+        message: chatLog[index].message,
+        timeStamp : chatLog[index].timeStamp
+      });
+
+    const getItemCount = _data => 1;
+
+    const Item = ({title}) => (
+    <View style={styles.item}>
+        <Text style={styles.title}>{title}</Text>
+    </View>
+    );
+
     const Disconnect = () => {
         // Do something here when the back button is pressed
         setScreen('join')
         return true; // Return true to prevent default behavior (exit app)
       };
-    
-
+    const sendMessage = () => {
+        console.log('send Message Pressed')
+        console.log(message)
+    }
+    const handleMessageInputChange = (text) => {
+        setMessage(text)
+        console.log('send Message Pressed')
+      }
 
     return (
     
@@ -39,24 +89,27 @@ export const ChatSession = ({setScreen}) => {
                     <TouchableOpacity style={styles.button} onPress={Disconnect}>
                     <Text style={styles.buttonText}>Disconnect</Text>
                     </TouchableOpacity>
-                    <Text>Session ID</Text>
+                    <Text>Session ID:{SessionID}</Text>
+                    <Text>User Name: {userName}</Text>
                    
                 </View>
             </View>
             <View style ={styles.chatPanel}>
             
                 <VirtualizedList
+                    data={chatLog}
                     initialNumToRender={4}
-                    renderItem={({item}) => <ChatBubble user="Person 1" tailDirection="left">{item.title}</ChatBubble>}
+                    renderItem={renderMessage}
+                
                     keyExtractor={item => item.id}
-                    getItemCount={getItemCount}
+                    getItemCount={(data) => data.length}
                     getItem={getItem}
                 />
             </View>
             <View style={styles.inputContainer}>
                 <View style={styles.inputRow}>
-                <TextInput style={styles.input} multiline={true} ></TextInput>
-                <TouchableOpacity style={styles.button} >
+                <TextInput style={styles.input} onChangeText={handleMessageInputChange} multiline={true} ></TextInput>
+                <TouchableOpacity style={styles.button} onPress={sendMessage}>
             <Text style={styles.buttonText}>Send</Text>
             </TouchableOpacity>
             </View>
@@ -169,5 +222,8 @@ export const ChatSession = ({setScreen}) => {
         alignItems: 'center',
         justifyContent: 'space-between',
       },
+      date: {
+        alignItems: 'center',
+      }
 
   });

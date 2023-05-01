@@ -28,6 +28,8 @@ const styles = StyleSheet.create({
   },
   tailLeft: {
     borderBottomLeftRadius: 0,
+    backgroundColor: "lightgrey",
+    
   },
   tailRight: {
     borderBottomRightRadius: 0,

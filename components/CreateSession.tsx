@@ -3,18 +3,22 @@ import { Text, View, StyleSheet, TextInput,TouchableOpacity } from 'react-native
 import Constants from 'expo-constants';
 import { PropsWithChildren } from "react";
 
-export const CreateSession = ({setScreen}) => {
+export const CreateSession = ({setScreen,setSessionID,userName,SessionID}) => {
     const cancelPress = () => { 
         setScreen('join')
     }
+    const createSession = () => {
+      console.log('creating new Session')
+    }
+    
     return (
       <View>
-        <Text>Session Name</Text>
-        <TextInput style={styles.input}></TextInput>
+        <Text>User Name</Text>
+        <TextInput style={styles.input}>{userName}</TextInput>
         <Text>Session ID</Text>
         <TextInput style={styles.input}></TextInput>
 
-        <TouchableOpacity style={styles.button} >
+        <TouchableOpacity style={styles.button} onPress={createSession} >
       <Text style={styles.buttonText}>create</Text>
     </TouchableOpacity>
     <TouchableOpacity style={styles.button} onPress={cancelPress} >

@@ -1,13 +1,24 @@
 import * as React from 'react';
-import { Text, View, StyleSheet, TextInput,TouchableOpacity } from 'react-native';
+import {useState,useEffect} from 'react';
+import { Text, View, StyleSheet, TextInput,TouchableOpacity, } from 'react-native';
 import Constants from 'expo-constants';
 import { PropsWithChildren } from "react";
 
-export const Join = ({setScreen}) => {
-
+export const Join = ({setScreen,setUserName,setSessionID,userName,SessionID}) => {
+  //const [NameValue, setNameValue] = useState('Rob');
+  //const [IDValue, setIDValue] = useState('');
+  
+  const handleIDInputChange = (text) => {
+    setSessionID(text)
+  }
+  const handleNameInputChange = (text) => {
+    setUserName(text)
+  }
   const joinSessionPress = () => {
     // Do something here when the back button is pressed
     setScreen('session')
+   
+
     return true; // Return true to prevent default behavior (exit app)
   };
   
@@ -16,13 +27,13 @@ export const Join = ({setScreen}) => {
     setScreen('create')
     return true; // Return true to prevent default behavior (exit app)
   };
-
+  
     return (
       <View>
         <Text>User Name</Text>
-        <TextInput style={styles.input}>test</TextInput>
+        <TextInput style={styles.input} onChangeText={handleNameInputChange}>{userName}</TextInput>
         <Text>Session ID</Text>
-        <TextInput style={styles.input}>test</TextInput>
+        <TextInput style={styles.input} onChangeText={handleIDInputChange}>{SessionID}</TextInput>
 
         <TouchableOpacity style={styles.button} onPress={joinSessionPress}>
       <Text style={styles.buttonText}>Join</Text>

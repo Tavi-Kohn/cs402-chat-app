@@ -21,17 +21,19 @@ export default function App() {
 
 export default function App() {
   const[screen,setScreen] = useState('join');
+  const[userName,setUserName] = useState('Rob');
+  const[SessionID,setSessionID] = useState();
 
   var cur_view 
   switch (screen) {
     case 'join' :
-      cur_view = <View style={styles.container}><Join setScreen={setScreen}></Join></View>
+      cur_view = <View style={styles.container}><Join setScreen={setScreen} setUserName={setUserName} setSessionID={setSessionID} userName={userName} SessionID={SessionID}></Join></View>
       break;
     case 'session' :
-      cur_view = <View style={styles.container}><ChatSession setScreen={setScreen}></ChatSession></View>
+      cur_view = <View style={styles.container}><ChatSession setScreen={setScreen} userName={userName} SessionID={SessionID}></ChatSession></View>
       break;
     case 'create' : 
-      cur_view = <View style={styles.container}><CreateSession setScreen={setScreen}></CreateSession></View>
+      cur_view = <View style={styles.container}><CreateSession setScreen={setScreen} setSessionID = {setSessionID} userName = {userName} SessionID= {SessionID}></CreateSession></View>
       break;
   }
   
