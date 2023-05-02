@@ -1,11 +1,24 @@
-import React, {useState,useEffect} from 'react';
+import React, {useEffect,useState, createContext, useContext, ReactNode} from 'react';
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View,SafeAreaView,ActivityIndicator } from "react-native";
+
+import { registerRootComponent } from 'expo';
+
+import {createStackNavigator} from '@react-navigation/stack'
+import {NavigationContainer} from '@react-navigation/native'
+import {onAuthStateChanged } from 'firebase/auth';
+
+import Chat from "./Screens/Chat"
+import Login from "./Screens/Signup"
+import Signup from "./Screens/Login"
+import Home from "./Screens/Home"
+
 
 import { ChatBubble } from "./components/ChatBubble";
 import {Join} from "./components/Join";
 import {CreateSession} from "./components/CreateSession";
 import {ChatSession} from "./components/ChatSession";
+import { auth } from './config/firebase';
 /* commented out to build login page
 export default function App() {
   return (
@@ -18,6 +31,65 @@ export default function App() {
   );
 }
 */
+
+
+const Stack=createStackNavigator();
+const AuthenticatedUserContext=createContext({});
+
+
+const AuthenticatedUserProvider=({children}:any)=>{
+  const [user,setUser]=useState(null);
+  return(
+    <AuthenticatedUserContext.Provider value={{user,setUser}}>
+      {children}
+      </AuthenticatedUserContext.Provider>
+  )
+}
+
+
+// ==============// ==============// ==============// ==============// ==============// ==============
+function ChatStack(){
+  return(
+<Stack.Navigator>
+  <Stack.Screen name='Home' component={Home}/>
+  <Stack.Screen name='Chat' component={Chat}/>
+</Stack.Navigator>
+  )
+}
+
+function AuthStack(){
+  return(
+<Stack.Navigator>
+  <Stack.Screen name='Login' component={Login}/>
+  <Stack.Screen name='Signup' component={Signup}/>
+</Stack.Navigator>
+  )
+}
+
+function RootNavigator(){
+  const {user,setUser}=useContext(AuthenticatedUserContext);
+  const [loading,setLoading]=useState(true);
+  useEffect(()=>{
+    const unsbscribe=onAuthStateChanged(auth,async authenticatedUser=>{authenticatedUser? setUser(authenticatedUser):setUser(null);
+    setLoading(false);
+    }) 
+    return ()=>unsbscribe();
+  },[user]);
+  if(loading){
+    return(
+      <View>
+        <ActivityIndicator/>
+      </View>
+    )
+  }
+  return(
+    <NavigationContainer>
+      {user ? <ChatStack/> : <AuthStack/>}
+    </NavigationContainer>
+  )
+}
+
+// ==============// ==============// ==============// ==============// ==============// ==============
 
 export default function App() {
   const[screen,setScreen] = useState('join');
@@ -38,10 +110,18 @@ export default function App() {
   }
   
   
-  return (
-      cur_view
-  );
+  // return (
+  //     cur_view
+  // );
+
+  return(
+    <AuthenticatedUserProvider>
+      <RootNavigator/>
+    </AuthenticatedUserProvider>
+
+  )
 }
+
 
 
 
