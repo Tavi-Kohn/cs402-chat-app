@@ -1,5 +1,5 @@
 import React,{useState} from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword,createUserWithEmailAndPassword } from "firebase/auth";
 import {auth} from "../config/firebase"
 import { Alert, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -21,6 +21,16 @@ export default function Login({navigation})
             .catch((err)=>Alert.alert("Login error",err.message))
         }
     };
+
+    const onHandleSignup=()=>
+        {
+            if(email !=="" && password !=="")
+            {
+                createUserWithEmailAndPassword(auth,email,password)
+                .then(()=>console.log("Signup Check!"))
+                .catch((err)=>Alert.alert("Login error",err.message))
+            }
+        };
     return(
         <View>
             <View>
@@ -43,7 +53,8 @@ export default function Login({navigation})
                         value={password}
                         onChangeText={(text)=>setPassword(text)}
                     />
-                    <TouchableOpacity onPress={onHandleLogin}>
+                    {/* <TouchableOpacity onPress={onHandleLogin}> */}
+                    <TouchableOpacity onPress={onHandleSignup}>
                         <Text>Login</Text>
                     </TouchableOpacity>
                     <View>
