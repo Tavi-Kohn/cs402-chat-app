@@ -1,5 +1,5 @@
-import React,{useEffect, useState,useLayoutEffect} from "react";
-import { Alert,View,TouchableOpacity,Text,StyleSheet,Dimensions,useWindowDimensions,StatusBar,VirtualizedList, SafeAreaView, } from "react-native";
+import React,{useEffect, useState,useLayoutEffect,useCallback} from "react";
+import { Alert,View,TouchableOpacity,Text,StyleSheet,Dimensions,useWindowDimensions,StatusBar,VirtualizedList, SafeAreaView,TextInput } from "react-native";
 import { useNavigation,CommonActions } from "@react-navigation/native";
 import { Entypo, FontAwesome } from "@expo/vector-icons";
 
@@ -10,17 +10,19 @@ import { ChatBubble } from "../components/ChatBubble";
 const { width, height } = Dimensions.get('window');
 
 const addCollection = () =>{
-console.log('new collection added')
+console.log('attempting to add new collection')
 addNewCollection()
+
 
 }
 
 
 const addNewCollection = async () => {
     try {
-      const newCollectionRef = collection(database, "new_collection1");
+      const newCollectionRef = collection(database, newCollectionName);
       await addDoc(newCollectionRef, { field: "value" });
       console.log("New collection added to Firestore");
+      //OnSend()
     } catch (error) {
       console.error("Error adding new collection to Firestore: ", error);
     }
@@ -53,7 +55,10 @@ const Home =()=>
     const navigation=useNavigation();
 
     const userName = 'test'
-   
+    const[chat_rooms,setChat_rooms]=useState([]);
+
+    const [newCollectionName,setNewCollectionName]=useState("");
+
     var Chat_rooms = [{collectionName:'person1'},
     {collectionName:'chats'},
     {collectionName:'new_collection1'},
@@ -61,6 +66,29 @@ const Home =()=>
     {collectionName:'Anna'},
 ]
 
+    const addCollection = () =>{
+        console.log('attempting to add new collection')
+        addNewCollection()
+        
+        
+        }
+    
+    
+    const addNewCollection = async () => {
+        try {
+          const newCollectionRef = collection(database, newCollectionName);
+          await addDoc(newCollectionRef, { field: "value" });
+          const name = newCollectionName
+          addDoc(collection(database,'COLLECTION_NAMES'),{
+            name
+            
+        }); 
+          console.log("New collection added to Firestore");
+          //OnSend()
+        } catch (error) {
+          console.error("Error adding new collection to Firestore: ", error);
+        }
+      };
 
 
     useEffect(()=>
@@ -74,10 +102,37 @@ const Home =()=>
 
     useLayoutEffect(()=>
     {
-        console.log('use layout called')
-        
-
+        console.log("the chat rooms are " + chat_rooms)
+        console.log('USE LAYOUT EFFECT CALLED')
+        const collectionRef=collection(database,'COLLECTION_NAME');
+        const q=query(collectionRef,orderBy('createdAt','desc'));
+        const unsubscribe=onSnapshot(q,snapshot=>{
+            console.log('snapshot');
+            setChat_rooms(snapshot.docs.map(doc=>({
+                
+                name:doc.data().name
+             
+            })) )
+        });
+        return unsubscribe;
     },[]);
+/*
+    const OnSend=useCallback((message=[])=>{
+
+        
+        console.log('ON SEND CALLED')
+        //message.user = 'Robbie'
+        //message[0].user = {name: user};
+        message[0].name = 'Robbie';
+        console.log("the massage is " + message)
+        setChat_rooms([...chat_rooms, newItem]);
+        const {name}=chat_rooms[0];
+        addDoc(collection(database,'COLLECTION_NAME'),{
+            name,
+           
+            
+        //}); 
+    },[] )*/
     //setlist(Chat_rooms);
     
     const renderMessage = ({item}) => {
@@ -150,7 +205,8 @@ const Home =()=>
         <TouchableOpacity style={styles.input} onPress={addCollection}>
                 <Text>Add new Chat Collections</Text>
             </TouchableOpacity>
-            <Text>test</Text>
+            <TextInput style={styles.input} onChangeText={(text)=>setNewCollectionName(text)}></TextInput>
+            
         </View>
     )
 }
