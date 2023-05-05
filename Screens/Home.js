@@ -9,16 +9,6 @@ import { ChatBubble } from "../components/ChatBubble";
 
 const { width, height } = Dimensions.get('window');
 
-<<<<<<< Updated upstream
-=======
-const addCollection = () =>{
-//console.log('attempting to add new collection')
-addNewCollection()
-
-
-}
-
->>>>>>> Stashed changes
 
 const addNewCollection = async () => {
     try {
@@ -40,16 +30,6 @@ const Home =()=>
     const[chat_rooms,setChat_rooms]=useState([]);
 
     const [newCollectionName,setNewCollectionName]=useState("");
-<<<<<<< Updated upstream
-=======
-    
-    var Chat_rooms = [{collectionName:'person1'},
-    {collectionName:'chats'},
-    {collectionName:'new_collection1'},
-    {collectionName:'Fred'},
-    {collectionName:'Anna'},
-]
->>>>>>> Stashed changes
 
     const addCollection = () =>{
         //console.log('attempting to add new collection')
@@ -87,7 +67,6 @@ const Home =()=>
 
     useEffect(()=>
     {
-<<<<<<< Updated upstream
         // console.log("the chat rooms are " + chat_rooms)
         console.log('USE LAYOUT EFFECT CALLED')
         const collectionRef=collection(database,'COLLECTION_NAMES');
@@ -98,22 +77,6 @@ const Home =()=>
                 _id: doc.id,
                 collectionName: doc.data().name
             })) )
-=======
-  
-        const collectionRef=collection(database,'COLLECTION_NAMES');
-        const q=query(collectionRef);
-        const unsubscribe=onSnapshot(q,snapshot=>{
-            //console.log('snapshot');
-            const rooms = snapshot.docs.map(doc=>({
-                
-                collectionName:doc.data().name
-                
-            
-            })) 
-
-            setChat_rooms(rooms)
-            console.log(rooms)
->>>>>>> Stashed changes
         });
         console.log("the chat rooms are " + JSON.stringify(chat_rooms))
         return unsubscribe;
@@ -138,17 +101,10 @@ const Home =()=>
     //setlist(Chat_rooms);
     
     const renderMessage = ({item}) => {
-<<<<<<< Updated upstream
         // console.log('renderMessage called')
         // console.log(item.collectionName)
         // console.log(userName)
         // console.log(item.collectionName === userName)
-=======
-       // console.log('renderMessage called')
-       // console.log(item.collectionName)
-        //console.log(userName)
-        //console.log(item.collectionName === userName)
->>>>>>> Stashed changes
         /*if (item.user == userName){
         return <View style={styles.date}><Text>{item.timeStamp}</Text><ChatBubble user={item.user} tailDirection="right">{item.message}</ChatBubble></View>
         }
@@ -161,42 +117,12 @@ const Home =()=>
       </TouchableOpacity>
       
     }
-<<<<<<< Updated upstream
-=======
-/*
-    const getItem = (_data, index) => ({
-        id: Math.random().toString(12).substring(0),
-        title: `Item ${index + 1}`,
-
-        
-      });*/
-      const getItem = (_data, index) => ({
-        id: Math.random().toString(12).substring(0),
-        //title: `Item ${index }`,
-        collectionName: chat_rooms[index].collectionName,
-      });
-      
-      const getItemCount = _data => 50;
-      
-      const Item = ({table}) => (
-       
-        
-        <TouchableOpacity onPress={()=>navigation.navigate({table})}><Text>{table}</Text>
-                <Entypo name="chat" size={24}/>
-            </TouchableOpacity>
-      );
-      const RenderItem = ({item}) => ({})
->>>>>>> Stashed changes
 
       
 
     return(
         <View>
-<<<<<<< Updated upstream
             <FlatList
-=======
-            <VirtualizedList
->>>>>>> Stashed changes
                 data={chat_rooms}
                 renderItem={(renderMessage)}
                 keyExtractor={item => item._id}
