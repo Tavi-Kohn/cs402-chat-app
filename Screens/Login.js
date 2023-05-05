@@ -85,7 +85,6 @@ export default function Login({navigation})
         <View>
             <View >
                 <SafeAreaView>
-
                 <Text style={styles.buttonText}>User Name:</Text>
                     <TextInput style={styles.input}
                         placeholder="Enter userName"

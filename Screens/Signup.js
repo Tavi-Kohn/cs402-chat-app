@@ -2,12 +2,13 @@ import React,{useState,useLayoutEffect,useCallback,} from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { collection,addDoc,orderBy,query,onSnapshot } from "firebase/firestore";
 import {auth,database} from '../config/firebase'
-import { Alert, TouchableOpacity, View, Button } from "react-native";
+import { Alert, TouchableOpacity, View, Button,StyleSheet,Dimensions } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TextInput } from "react-native-gesture-handler";
 import { Text } from "react-native";
 
-
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 export default function Login({navigation})
 {
@@ -16,6 +17,7 @@ export default function Login({navigation})
 
     const[message,setMessage]=useState([]);
     
+
 
     // const onSignout =()=>{
     //     signOut(auth).catch(error=>console.log(error))
@@ -72,39 +74,58 @@ export default function Login({navigation})
             Alert.alert("Your Email or Password is not valid, Please try again")
         }
     };
-    
-    return(
-        <View>
+        return(
             <View>
-                <SafeAreaView>
-                    <Text>Login</Text>
-                    <TextInput
-                        placeholder="Enter Email"
-                        keyboardType="email-address"
-                        textContentType="emailAddress"
-                        autoFocus={true}
-                        value={email}
-                        onChangeText={(text)=>setEmail(text)}
-                    />
-
-                    <TextInput
-                        placeholder="Enter Password"
-                        autoCorrect={false}
-                        secureTextEntry={true}
-                        textContentType="password"
-                        value={password}
-                        onChangeText={(text)=>setPassword(text)}
-                    />
-                    <Button title="Login" onPress={onHandleLogin}></Button>
-                    <View>
-                        <Text style={{color:'gray',fontWeight:'600',fontSize:14}}>Don't have an account?</Text>
-                        <TouchableOpacity onPress={()=>navigation.navigate("Signup")}>
-                        <Text style={{color:'orange',fontWeight:'600',fontSize:14}}>Sign Up</Text>
-                        </TouchableOpacity>
-
-                    </View>
-                </SafeAreaView>
+                <View style={styles.container}>
+                    <SafeAreaView>
+                        <Text>Login Page</Text>
+                        <TextInput
+                            placeholder="Enter Email"
+                            keyboardType="email-address"
+                            textContentType="emailAddress"
+                            autoFocus={true}
+                            value={email}
+                            onChangeText={(text)=>setEmail(text)}
+                            style={styles.input}
+                        />
+    
+                        <TextInput
+                            placeholder="Enter Password"
+                            autoCorrect={false}
+                            secureTextEntry={true}
+                            textContentType="password"
+                            value={password}
+                            onChangeText={(text)=>setPassword(text)}
+                            style={styles.input}
+                        />
+                        <Button title="Login" onPress={onHandleLogin}></Button>
+                        <View>
+                            <Text style={{color:'gray',fontWeight:'600',fontSize:14}}>Don't have an account?</Text>
+                            <TouchableOpacity onPress={()=>navigation.navigate("Signup")}>
+                            <Text style={{color:'orange',fontWeight:'600',fontSize:14}}>Sign Up</Text>
+                            </TouchableOpacity>
+    
+                        </View>
+                    </SafeAreaView>
+                </View>
             </View>
-        </View>
-    )
+        )
 }
+
+
+const styles = StyleSheet.create({
+
+    container: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        top:windowHeight/5
+      },
+    input: {
+      borderWidth: 1,
+      borderColor: 'black',
+      borderRadius: 5,
+      padding: 10,
+      width: 200,
+      margin:20
+    },
+  });
