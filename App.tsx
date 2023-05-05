@@ -118,6 +118,7 @@ export default function App() {
     <AuthenticatedUserProvider>
       <RootNavigator/>
     </AuthenticatedUserProvider>
+    
 
   )
 }

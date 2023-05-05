@@ -6,6 +6,7 @@ import { Alert, TouchableOpacity, View, Button,StyleSheet,Dimensions } from "rea
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TextInput } from "react-native-gesture-handler";
 import { Text } from "react-native";
+import { Icon } from "react-native-vector-icons/FontAwesome";
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -78,7 +79,7 @@ export default function Login({navigation})
             <View>
                 <View style={styles.container}>
                     <SafeAreaView>
-                        <Text>Login Page</Text>
+                        <Text>Email address:</Text>
                         <TextInput
                             placeholder="Enter Email"
                             keyboardType="email-address"
@@ -88,7 +89,7 @@ export default function Login({navigation})
                             onChangeText={(text)=>setEmail(text)}
                             style={styles.input}
                         />
-    
+                        <Text>Password:</Text>
                         <TextInput
                             placeholder="Enter Password"
                             autoCorrect={false}
@@ -98,7 +99,8 @@ export default function Login({navigation})
                             onChangeText={(text)=>setPassword(text)}
                             style={styles.input}
                         />
-                        <Button title="Login" onPress={onHandleLogin}></Button>
+                        <Button title="Login" onPress={onHandleLogin}>
+                        </Button> 
                         <View>
                             <Text style={{color:'gray',fontWeight:'600',fontSize:14}}>Don't have an account?</Text>
                             <TouchableOpacity onPress={()=>navigation.navigate("Signup")}>
