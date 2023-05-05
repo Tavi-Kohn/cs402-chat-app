@@ -72,12 +72,11 @@ export default function Login({navigation})
             {   
                 createUserWithEmailAndPassword(auth,email,password)
                 .then(()=>console.log("Signup Check!"),
-                OnSend(message)
-                
-                
-                
-                )
+                OnSend(message))
                 .catch((err)=>Alert.alert("Login error",err.message))
+            }
+            else{
+                Alert.alert("Your Email or Password is not valid, Please try again")
             }
         };
 

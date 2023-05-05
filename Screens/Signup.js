@@ -68,6 +68,9 @@ export default function Login({navigation})
             .then(()=>console.log("Login Check!"))
             .catch((err)=>Alert.alert("Login error",err.message))
         }
+        else{
+            Alert.alert("Your Email or Password is not valid, Please try again")
+        }
     };
     
     return(
