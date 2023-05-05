@@ -6,4 +6,4 @@ This is a very basic chat application that users can use to make a group chat to
 
 <a href="https://github.com/Tavi-Kohn/cs402-chat-app/blob/main/CS%20402%20Spring%202023.pdf" target="_blank">Architecture Document</a>
 
-<a href="https://github.com/Tavi-Kohn/cs402-chat-app/blob/main/User%20Manual.pdf" target="_blank">User Manual Report</a>
+<a href="https://github.com/Tavi-Kohn/cs402-chat-app/blob/main/User%20Manual-2.pdf">User Manual Report</a>
