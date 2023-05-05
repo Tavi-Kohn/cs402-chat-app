@@ -119,7 +119,7 @@ export default function Login({navigation})
                     </TouchableOpacity>
                     <View>
                         <Text style={{color:'gray',fontWeight:'600',fontSize:14}}>Already Have an account?</Text>
-                        <TouchableOpacity style={styles.button} onPress={/*()=>navigation.navigate("Login")*/console.log('should reroute')}>
+                        <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate("Login")}>
                         <Text style={{color:'orange',fontWeight:'600',fontSize:14}}>Login</Text>
                         </TouchableOpacity >
 
