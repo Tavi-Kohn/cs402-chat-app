@@ -79,7 +79,8 @@ export default function Login({navigation})
             <View>
                 <View style={styles.container}>
                     <SafeAreaView>
-                        <Text>Email address:</Text>
+                        <Text 
+                        style={styles.text}>Email address:</Text>
                         <TextInput
                             placeholder="Enter Email"
                             keyboardType="email-address"
@@ -89,7 +90,7 @@ export default function Login({navigation})
                             onChangeText={(text)=>setEmail(text)}
                             style={styles.input}
                         />
-                        <Text>Password:</Text>
+                        <Text style={styles.text}>Password:</Text>
                         <TextInput
                             placeholder="Enter Password"
                             autoCorrect={false}
@@ -102,7 +103,7 @@ export default function Login({navigation})
                         <Button title="Login" onPress={onHandleLogin}>
                         </Button> 
                         <View>
-                            <Text style={{color:'gray',fontWeight:'600',fontSize:14}}>Don't have an account?</Text>
+                            <Text style={{color:'gray',fontWeight:'600',fontSize:18}}>Don't have an account?</Text>
                             <TouchableOpacity onPress={()=>navigation.navigate("Signup")}>
                             <Text style={{color:'orange',fontWeight:'600',fontSize:14}}>Sign Up</Text>
                             </TouchableOpacity>
@@ -130,4 +131,9 @@ const styles = StyleSheet.create({
       width: 200,
       margin:20
     },
+    text:{
+        fontSize:25,
+        fontWeight:'bold',
+        fontFamily: 'Cochin',
+    }
   });
