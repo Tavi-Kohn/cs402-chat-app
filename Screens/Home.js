@@ -111,47 +111,45 @@ const Home =()=>
         else {
             return <View style={styles.date}><Text>{item.timeStamp}</Text><ChatBubble user={item.user} tailDirection="left">{item.message}</ChatBubble></View>
         }*/
-        return <TouchableOpacity onPress={() => navigation.navigate({ name: 'Chat', params: { myParam: item.collectionName } })}>
-        <Text>{item.collectionName}</Text>
-        <Entypo name="chat" size={24}/>
-      </TouchableOpacity>
+        return(
+          <View style={styles.listview}>
+            <TouchableOpacity onPress={() => navigation.navigate({ name: 'Chat', params: { myParam: item.collectionName } })}>
+          <Text>{item.collectionName}</Text>
+          <Entypo name="chat" size={24}/>
+        </TouchableOpacity>
+          </View> 
+        )
+
       
     }
+  
 
-      
-
-    return(
+      return(
         <View>
-            <FlatList
+          <View style={{height:height/2}}>
+          <FlatList
                 data={chat_rooms}
                 renderItem={(renderMessage)}
                 keyExtractor={item => item._id}
                 // getItemCount={(data) => data.length}
                 // getItem={getItem}
       />
-            
-        <View>
-        
-            
-      
-    
-{/*         
-            <Text>test</Text>
-            <TouchableOpacity onPress={()=>navigation.navigate("Chat")}><Text></Text>
-                <Entypo name="chat" size={24}/>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={()=>navigation.navigate("Chat")}>
-                <Entypo name="chat" size={24}/>
-            </TouchableOpacity> */}
-        </View>
-        <TouchableOpacity style={styles.input} onPress={addCollection}>
+          </View>
+          <View style={{justifyContent:'center',alignItems:'center'}}>
+          <TouchableOpacity style={styles.input} onPress={addCollection}>
                 <Text>Add new Chat Collections</Text>
             </TouchableOpacity>
             <TextInput style={styles.input} onChangeText={(text)=>setNewCollectionName(text)}></TextInput>
+          </View>     
+        <View>
+        </View>
             
         </View>
     )
-}
+    
+    }
+  
+ßß
 
 const styles = StyleSheet.create({
     input: {
@@ -229,6 +227,13 @@ const styles = StyleSheet.create({
       },
       date: {
         alignItems: 'center',
+      },
+      listview:{
+        backgroundColor: '#ff7f50',
+        justifyContent: 'center',
+        marginVertical: 8,
+        marginHorizontal: 16,
+        padding: 20,
       }
 
   });
