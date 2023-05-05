@@ -131,7 +131,7 @@ const Home =()=>
           <View style={{flexDirection:"row"}}>
             <TextInput style={styles.input} clearButtonMode="always" onChangeText={(text)=>setNewCollectionName(text)} placeholder="Type your collection here"></TextInput>
             <TouchableOpacity style={styles.input} onPress={addCollection} >
-                <Text>Add new Chat Collections</Text>
+                <Text>+ Collections</Text>
             </TouchableOpacity>
           
           </View>
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
       borderRadius: 5,
       padding: 10,
       margin: 10,
-      width: 200
+      width: 130
 
     },
     button: {
