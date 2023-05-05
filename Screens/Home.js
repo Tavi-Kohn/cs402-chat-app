@@ -43,8 +43,8 @@ const Home =()=>
     
     const addNewCollection = async () => {
         try {
-          const newCollectionRef = collection(database, newCollectionName);
-          await addDoc(newCollectionRef, { field: "value" });
+          // const newCollectionRef = collection(database, newCollectionName);
+          // await addDoc(newCollectionRef, { field: "value" });
           const name = newCollectionName
           addDoc(collection(database,'COLLECTION_NAMES'),{
             name
