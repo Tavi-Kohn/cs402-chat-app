@@ -6,6 +6,7 @@ import { Entypo, FontAwesome } from "@expo/vector-icons";
 import { collection,addDoc,orderBy,query,onSnapshot } from "firebase/firestore";
 import {auth,database} from '../config/firebase'
 import { ChatBubble } from "../components/ChatBubble";
+import DialogInput from 'react-native-dialog-input';
 
 const { width, height } = Dimensions.get('window');
 
@@ -28,12 +29,13 @@ const Home =()=>
 
     const userName = 'test'
     const[chat_rooms,setChat_rooms]=useState([]);
+    const [isDialogVisible, setIsDialogVisible] = useState(false);
 
     const [newCollectionName,setNewCollectionName]=useState("");
 
     const addCollection = () =>{
         //console.log('attempting to add new collection')
-        addNewCollection()
+        addNewCollection();
         
         
         }
@@ -126,7 +128,14 @@ const Home =()=>
 
       return(
         <View>
-          <View style={{height:height/2}}>
+          <View style={{flexDirection:"row"}}>
+            <TextInput style={styles.input} clearButtonMode="always" onChangeText={(text)=>setNewCollectionName(text)} placeholder="Type your collection here"></TextInput>
+            <TouchableOpacity style={styles.input} onPress={addCollection} >
+                <Text>Add new Chat Collections</Text>
+            </TouchableOpacity>
+          
+          </View>
+          <View style={{height:height/1.3}}>
           <FlatList
                 data={chat_rooms}
                 renderItem={(renderMessage)}
@@ -135,21 +144,19 @@ const Home =()=>
                 // getItem={getItem}
       />
           </View>
-          <View style={{justifyContent:'center',alignItems:'center'}}>
+          {/* <View style={{justifyContent:'center',alignItems:'center'}}>
           <TouchableOpacity style={styles.input} onPress={addCollection}>
                 <Text>Add new Chat Collections</Text>
             </TouchableOpacity>
             <TextInput style={styles.input} onChangeText={(text)=>setNewCollectionName(text)}></TextInput>
-          </View>     
-        <View>
-        </View>
+          </View>      */}
             
         </View>
     )
     
     }
   
-ßß
+
 
 const styles = StyleSheet.create({
     input: {

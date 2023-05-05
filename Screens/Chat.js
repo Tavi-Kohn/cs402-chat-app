@@ -1,5 +1,5 @@
 import React,{useState,useEffect,useCallback, useLayoutEffect} from "react";
-import { TouchableOpacity,Text } from "react-native";
+import { TouchableOpacity,Text, SafeAreaView } from "react-native";
 import {GiftedChat, Bubble} from "react-native-gifted-chat";
 import { collection,addDoc,orderBy,query,onSnapshot } from "firebase/firestore";
 // import { signOut } from "firebase/auth";
@@ -82,8 +82,7 @@ export default function Chat({propKey }){
     )
 */  
     return(
-        
-        <GiftedChat
+            <GiftedChat
             messages={message} 
             //user = {{
             //    _id:2,
@@ -102,5 +101,6 @@ export default function Chat({propKey }){
                 borderBottomRightRadius: 0,
             }}
         />
+        
     )
 }
